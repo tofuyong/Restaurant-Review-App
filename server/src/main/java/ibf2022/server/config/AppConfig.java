@@ -12,22 +12,22 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 @Configuration
 public class AppConfig {
-    // @Value("${do.storage.key}")
-    // private String accessKey;
+    @Value("${do.storage.key}")
+    private String accessKey;
 
-    // @Value("${do.storage.secretkey}")
-    // private String secretKey;
+    @Value("${do.storage.secretkey}")
+    private String secretKey;
 
-    // @Value("${do.storage.endpoint}")
-    // private String endPoint;
+    @Value("${do.storage.endpoint}")
+    private String endPoint;
 
-    // @Value("${do.storage.endpoint.region}")
-    // private String endPointRegion;
+    @Value("${do.storage.endpoint.region}")
+    private String endPointRegion;
 
-    private String accessKey = "DO00MN238DPXV2QGYZFQ";
-    private String secretKey = "xp1AwvYTYWQPaQRO2k7acMYPT/aym/ajgbZF7C9XbMU";
-    private String endPoint = "sgp1.digitaloceanspaces.com";
-    private String endPointRegion = "sgp1";
+    // private String accessKey = "DO00MN238DPXV2QGYZFQ";
+    // private String secretKey = "xp1AwvYTYWQPaQRO2k7acMYPT/aym/ajgbZF7C9XbMU";
+    // private String endPoint = "sgp1.digitaloceanspaces.com";
+    // private String endPointRegion = "sgp1";
 
     @Bean 
     public AmazonS3 createS3Client(){

@@ -34,7 +34,7 @@ public class RestaurantRepository {
     public List<Restaurant> findRestaurantsByCuisine(String cuisine) {
         Criteria criteria = Criteria.where("type_of_food").is(cuisine); 
         Query query = Query.query(criteria);
-        query.fields().include("name", "rating", "URL", "address", "address line 2").exclude("_id");
+        query.fields().include("name", "rating", "URL", "address", "address line 2", "_id").exclude("_id");
 
         List<Document> results = mongoTemplate.find(query, Document.class, RESTAURANT_COL);
         List<Restaurant> restaurants = new ArrayList<>();

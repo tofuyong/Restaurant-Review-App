@@ -73,7 +73,10 @@ export class ReviewComponent implements OnInit, OnDestroy {
     } else {
       this.reviewSvc.uploadReview(formVal)
       .then(
-        response => console.log('Review saved successfully', response),
+        response => {
+          console.log('Review saved successfully', response);
+          this.router.navigate(['/list', this.cuisine]);
+        },
         error => console.log('Error while saving review', error)
       );
     }
