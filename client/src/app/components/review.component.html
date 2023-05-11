@@ -3,16 +3,34 @@
 <form [formGroup]="reviewForm" (ngSubmit)="postReview()">
     <table>
         <tr>
+            <td>Restaurant Name: </td>
+            <td>
+                <input type="text" formControlName="restaurantName">
+            </td>
+        </tr>
+        <tr>
             <td>Restaurant Reviewer: </td>
-            <td><input type="text" formControlName="reviewer"></td>
+            <td>
+                <input type="text" formControlName="reviewer">
+                <span *ngIf="hasError('reviewer')">
+                    Please enter a name with at least 3 characters
+                </span>
+            </td>
         </tr>
         <tr>
             <td>Rating: </td>
-            <td><input type="number" min="1" max="5" formControlName="rating"></td>
+            <td>
+                <input type="number" min="1" max="5" formControlName="rating">
+                <span *ngIf="hasError('rating')">
+                    Rating must be between 1 and 5
+                </span>
+            </td>
         </tr>
         <tr>
             <td>Review: </td>
-            <td><textarea cols="30" rows="5" formControlName="review"></textarea></td>
+            <td>
+                <textarea cols="30" rows="5" formControlName="review"></textarea>
+            </td>
         </tr>
         <tr>
             <td>Upload Picture: </td>

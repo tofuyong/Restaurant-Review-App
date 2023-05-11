@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import ibf2022.server.model.Restaurant;
+import ibf2022.server.model.Review;
 import jakarta.json.Json;
 import jakarta.json.JsonNumber;
 import jakarta.json.JsonObject;
@@ -20,6 +21,7 @@ import jakarta.json.JsonReader;
 @Repository
 public class RestaurantRepository {
     private static final String RESTAURANT_COL = "restaurant";
+    static final String REVIEW_COL = "review";
 
 	@Autowired
     private MongoTemplate mongoTemplate;
@@ -51,4 +53,10 @@ public class RestaurantRepository {
         }
        return restaurants;
     }
+
+    /* db.review.insertOne({ restaurantName: '', reviewer: 'John', rating: 5, review: 'Great' }) */
+    public Review insertReview(Review review) {
+        return this.mongoTemplate.insert(review, REVIEW_COL);
+    }
+
 }

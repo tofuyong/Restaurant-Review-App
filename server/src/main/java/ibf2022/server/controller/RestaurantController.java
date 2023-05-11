@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import ibf2022.server.model.Restaurant;
+import ibf2022.server.model.Review;
 import ibf2022.server.repository.RestaurantRepository;
 import ibf2022.server.service.S3Service;
 import jakarta.json.Json;
@@ -44,19 +45,25 @@ public class RestaurantController {
 	}
 
    
-    @PostMapping(path = "/upload", consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/uploadwimage", consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @CrossOrigin()
-    public ResponseEntity<String> uploadForAngular(
+    public ResponseEntity<String> uploadForAngularWithImage(
         @RequestPart MultipartFile imageFile,
+        @RequestPart String restaurantName,
         @RequestPart String reviewer,
         @RequestPart String rating,
         @RequestPart String review
     ){
-        String key = "";
-        System.out.printf("reviewer: %s", reviewer);
-        System.out.printf("review: %s", review);
+        Review reviewObj = new Review();
+        reviewObj.setRestaurantName(restaurantName);
+        reviewObj.setReviewer(reviewer);
+        reviewObj.setRating(rating);
+        reviewObj.setReview(review);
+
+        restaurantRepo.insertReview(reviewObj);
         
+        String key = "";
         try {
             key = s3svc.upload(imageFile);
         } catch (IOException e) {
@@ -68,6 +75,26 @@ public class RestaurantController {
             .build();
 
         return ResponseEntity.ok(payload.toString());
+    }
+
+    @PostMapping(path = "/upload", consumes=MediaType.MULTIPART_FORM_DATA_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @CrossOrigin()
+    public ResponseEntity<Review> uploadForAngular(
+        @RequestPart String restaurantName,
+        @RequestPart String reviewer,
+        @RequestPart String rating,
+        @RequestPart String review
+    ){
+        Review reviewObj = new Review();
+        reviewObj.setRestaurantName(restaurantName);
+        reviewObj.setReviewer(reviewer);
+        reviewObj.setRating(rating);
+        reviewObj.setReview(review);
+
+        restaurantRepo.insertReview(reviewObj);
+
+        return ResponseEntity.ok(reviewObj);
     }
 
 }
