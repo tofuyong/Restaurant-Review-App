@@ -5,6 +5,7 @@ public class Review {
     private String reviewer;
     private String rating;
     private String review;
+    private String imageUrl;
 
 
     public String getRestaurantName() {return this.restaurantName;}
@@ -19,6 +20,7 @@ public class Review {
     public String getReview() {return this.review;}
     public void setReview(String review) {this.review = review;}
 
-
+    public String getImageUrl() {return this.imageUrl;}
+    public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
 
 }

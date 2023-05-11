@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RestaurantService } from '../service/restaurant.service';
 import { Restaurant } from '../models/Restaurant';
+import { ReviewService } from '../service/review.service';
 
 @Component({
   selector: 'app-list',
@@ -15,16 +16,15 @@ export class ListComponent implements OnInit, OnDestroy {
   restaurants!: Restaurant[];
   isLoading: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private restaurantSvc: RestaurantService) { }
+  constructor(private activatedRoute: ActivatedRoute, private restaurantSvc: RestaurantService,
+              private reviewSvc: ReviewService) { }
 
   ngOnInit(): void {
     this.param$ = this.activatedRoute.params.subscribe(
       (params) => {
         this.cuisine = params['cuisine'];
-      }
-    )
-    this.isLoading = true; 
-    this.restaurantSvc.getRestaurantsByCuisine(this.cuisine)
+        this.isLoading = true; 
+        this.restaurantSvc.getRestaurantsByCuisine(this.cuisine)
           .then(
             (r) => {
               const restaurants = r;
@@ -37,7 +37,8 @@ export class ListComponent implements OnInit, OnDestroy {
                   restaurant.url,
                   restaurant.address,
                   restaurant.address_line_2,
-                  restaurant.cuisine
+                  restaurant.cuisine,
+                  restaurant.reviewCount
                 );
                 this.restaurants.push(r);
               }
@@ -52,6 +53,9 @@ export class ListComponent implements OnInit, OnDestroy {
           .finally(() => {
             this.isLoading = false;  
           });
+      }
+    )
+    
   }
 
   ngOnDestroy(): void { this.param$.unsubscribe(); }

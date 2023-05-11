@@ -5,10 +5,11 @@
     </h2>
 </span>
 
-<div *ngIf="!isLoading && restaurants && restaurants.length > 0; else noResult">
+<div *ngIf="!isLoading && restaurants && restaurants.length > 0; else loading">
+    
     <table class="listing" *ngFor="let restaurant of restaurants">
         <tr>
-            <a [routerLink]="['/review', restaurant.cuisine, restaurant.name]">
+            <a [routerLink]="['/leavereview', restaurant.cuisine, restaurant.name]">
                 <td><b>{{ restaurant.name }}</b></td>
             </a>
         </tr>
@@ -22,12 +23,25 @@
             <td><a href="{{ restaurant.url }}">{{ restaurant.url }}</a></td>
         </tr>
         <tr>
-            <td>Address:{{ restaurant.address }}, {{ restaurant.address_line_2 }}</td>
+            <td>Address: {{ restaurant.address }}, {{ restaurant.address_line_2 }}</td>
+        </tr>
+        <tr>
+            <ng-container *ngIf="restaurant.reviewCount !== 0; else noReviews">
+                Number of reviews: <a [routerLink]="['/reviews', cuisine, restaurant.name]">{{ restaurant.reviewCount }}</a>
+            </ng-container>
+            <ng-template #noReviews>
+                Number of reviews: {{ restaurant.reviewCount }}
+            </ng-template>
         </tr>
     </table>
 </div>
 
 
-<ng-template #noResult>
-    <p>Your search produced no result</p>
+<ng-template #loading>
+    <div *ngIf="isLoading">
+      <p>Loading...</p>
+    </div>
+    <ng-container *ngIf="!isLoading">
+      <p>Your search produced no result</p>
+    </ng-container>
 </ng-template>

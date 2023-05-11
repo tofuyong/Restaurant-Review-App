@@ -1,0 +1,34 @@
+<span>
+    <h2>
+        Reviews for {{ restaurant }}  
+        <button type="button" [routerLink]="['/list', cuisine]">Back</button>
+    </h2>
+</span>
+
+<div *ngIf="!isLoading && reviews && reviews.length > 0; else loading">
+    
+    <table class="listing" *ngFor="let review of reviews">
+        <tr>
+            <td>Reviewer: {{ review.reviewer }}</td>
+        </tr>
+        <tr>
+            <td>Rating: {{ review.rating }}</td>
+        </tr>
+        <tr>
+            <td>Review: {{ review.review }}</td>
+        </tr>
+        <tr>
+            <img [src]="review.imageUrl" width="300px" alt="No image uploaded">
+        </tr>
+    </table>
+</div>
+
+
+<ng-template #loading>
+    <div *ngIf="isLoading">
+      <p>Loading...</p>
+    </div>
+    <ng-container *ngIf="!isLoading">
+      <p>Your search produced no result</p>
+    </ng-container>
+</ng-template>

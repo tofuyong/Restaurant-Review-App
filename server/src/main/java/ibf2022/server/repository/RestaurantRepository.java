@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import ibf2022.server.model.Restaurant;
-import ibf2022.server.model.Review;
 import jakarta.json.Json;
 import jakarta.json.JsonNumber;
 import jakarta.json.JsonObject;
@@ -21,10 +20,12 @@ import jakarta.json.JsonReader;
 @Repository
 public class RestaurantRepository {
     private static final String RESTAURANT_COL = "restaurant";
-    static final String REVIEW_COL = "review";
 
 	@Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private ReviewRepository reviewRepo;
 
     /* 
         db.restaurant.find({"type_of_food": '<cuisine>'},
@@ -48,15 +49,13 @@ public class RestaurantRepository {
             String address = o.getString("address");
             String address_line_2 = o.getString("address line 2");
     
-            Restaurant restaurant = new Restaurant(name, rating, URL, address, address_line_2, cuisine);
+            int reviewCount = reviewRepo.countReviews(name);
+            Restaurant restaurant = new Restaurant(name, rating, URL, address, address_line_2, cuisine, reviewCount);
             restaurants.add(restaurant);
         }
        return restaurants;
     }
 
-    /* db.review.insertOne({ restaurantName: '', reviewer: 'John', rating: 5, review: 'Great' }) */
-    public Review insertReview(Review review) {
-        return this.mongoTemplate.insert(review, REVIEW_COL);
-    }
+    
 
 }

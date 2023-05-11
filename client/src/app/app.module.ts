@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './components/search.component';
 import { ListComponent } from './components/list.component';
 import { ReviewComponent } from './components/review.component';
+import { ReviewsListComponent } from './components/reviews-list.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ReviewComponent } from './components/review.component';
     AppComponent,
     SearchComponent,
     ListComponent,
-    ReviewComponent
+    ReviewComponent,
+    ReviewsListComponent
   ],
   imports: [
     BrowserModule,

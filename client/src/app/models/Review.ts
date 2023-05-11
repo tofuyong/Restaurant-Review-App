@@ -4,5 +4,6 @@ export class Review {
         public reviewer: string,
         public rating: number,
         public review: string,
+        public imageUrl: string
     ) { };
 }

@@ -5,6 +5,7 @@ export class Restaurant {
         public url: string,
         public address: string,
         public address_line_2: string,
-        public cuisine: string
+        public cuisine: string,
+        public reviewCount: number
     ) { };
 }

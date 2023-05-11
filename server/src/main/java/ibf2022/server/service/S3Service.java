@@ -36,7 +36,7 @@ public class S3Service {
         metadata.setUserMetadata(userData);
         String key = UUID.randomUUID().toString()
             .substring(0, 8);
-        System.out.println("myobjects/%s".formatted(key));
+        // System.out.println("myobjects/%s".formatted(key));
         System.out.println(file.getOriginalFilename());
         
         StringTokenizer tk = new StringTokenizer(file.getOriginalFilename(), ".");
@@ -63,7 +63,7 @@ public class S3Service {
         putRequest.withCannedAcl(
                 CannedAccessControlList.PublicRead);
         s3Client.putObject(putRequest);
-        return "myobjects/%s.%s".formatted(key, filenameExt);
+        return "%s.%s".formatted(key, filenameExt);
     }
     
 }

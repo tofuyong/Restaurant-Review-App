@@ -7,6 +7,7 @@ public class Restaurant {
     private String address;
     private String address_line_2;
     private String cuisine;
+    private int reviewCount;
 
     public String getName() {return this.name;}
     public void setName(String name) {this.name = name;}
@@ -26,15 +27,18 @@ public class Restaurant {
     public String getCuisine() {return this.cuisine;}
     public void setCuisine(String cuisine) {this.cuisine = cuisine;}
 
+    public int getReviewCount() {return this.reviewCount;}
+    public void setReviewCount(int reviewCount) {this.reviewCount = reviewCount;}
 
 
-    public Restaurant(String name, String rating, String URL, String address, String address_line_2, String cuisine) {
+    public Restaurant(String name, String rating, String URL, String address, String address_line_2, String cuisine, int reviewCount) {
         this.name = name;
         this.rating = rating;
         this.URL = URL;
         this.address = address;
         this.address_line_2 = address_line_2;
         this.cuisine = cuisine;
+        this.reviewCount = reviewCount;
     }
     
 

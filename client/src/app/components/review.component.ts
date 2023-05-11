@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RestaurantService } from '../service/restaurant.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Review } from '../models/Review';
+import { ReviewService } from '../service/review.service';
 
 @Component({
   selector: 'app-review',
@@ -19,7 +19,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   imageData = "";
   blob!: Blob;
 
-  constructor(private activatedRoute: ActivatedRoute, private restaurantSvc: RestaurantService,
+  constructor(private activatedRoute: ActivatedRoute, private reviewSvc: ReviewService,
               private fb: FormBuilder, private router: Router) { }
   
   ngOnInit(): void {
@@ -61,21 +61,23 @@ export class ReviewComponent implements OnInit, OnDestroy {
         }
         this.blob = new Blob([ab], { type: this.selectedFile.type });
         // service method takes in form values and uploaded image as separate parameters
-        this.restaurantSvc.uploadReviewWithImage(formVal, this.blob)
+        this.reviewSvc.uploadReviewWithImage(formVal, this.blob)
           .then(
-          response => console.log('Review saved successfully', response),
+          response => {
+          console.log('Review saved successfully', response);
+          this.router.navigate(['/list', this.cuisine]);
+          },
           error => console.log('Error while saving review', error)
         );
       };
     } else {
-      this.restaurantSvc.uploadReview(formVal)
+      this.reviewSvc.uploadReview(formVal)
       .then(
         response => console.log('Review saved successfully', response),
         error => console.log('Error while saving review', error)
       );
     }
-    this.router.navigate(['/list', this.cuisine]);
-    }
+  }
   
 
 
