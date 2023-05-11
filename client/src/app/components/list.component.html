@@ -1,0 +1,33 @@
+<span>
+    <h2>
+        List of {{ cuisine }} Restaurants
+        <button type="button" [routerLink]="['/']">Back</button>
+    </h2>
+</span>
+
+<div *ngIf="!isLoading && restaurants && restaurants.length > 0; else noResult">
+    <table class="listing" *ngFor="let restaurant of restaurants">
+        <tr>
+            <a [routerLink]="['/review', restaurant.cuisine, restaurant.name]">
+                <td><b>{{ restaurant.name }}</b></td>
+            </a>
+        </tr>
+        <tr>
+            <td>Cuisine: {{ restaurant.cuisine }}</td>
+        </tr>
+        <tr>
+            <td>Rating: {{ restaurant.rating }}</td>
+        </tr>
+        <tr>
+            <td><a href="{{ restaurant.url }}">{{ restaurant.url }}</a></td>
+        </tr>
+        <tr>
+            <td>Address:{{ restaurant.address }}, {{ restaurant.address_line_2 }}</td>
+        </tr>
+    </table>
+</div>
+
+
+<ng-template #noResult>
+    <p>Your search produced no result</p>
+</ng-template>

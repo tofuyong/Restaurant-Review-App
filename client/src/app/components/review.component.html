@@ -1,0 +1,29 @@
+<h2>{{ restaurant }}</h2>
+
+<form [formGroup]="reviewForm" (ngSubmit)="postReview()">
+    <table>
+        <tr>
+            <td>Restaurant Reviewer: </td>
+            <td><input type="text" formControlName="reviewer"></td>
+        </tr>
+        <tr>
+            <td>Rating: </td>
+            <td><input type="number" min="1" max="5" formControlName="rating"></td>
+        </tr>
+        <tr>
+            <td>Review: </td>
+            <td><textarea cols="30" rows="5" formControlName="review"></textarea></td>
+        </tr>
+        <tr>
+            <td>Upload Picture: </td>
+            <td><input type="file" (change)="onFileSelected($event)" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="button" [routerLink]="['/list', cuisine]" >Back</button>
+                <button type="submit" [disabled]="reviewForm.invalid">Post</button>
+            </td>
+        </tr>
+    </table>
+</form>

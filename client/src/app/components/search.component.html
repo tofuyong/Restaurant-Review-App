@@ -1,0 +1,20 @@
+<h2>Search Restaurants by Cuisine</h2>
+
+<form [formGroup]="form" (ngSubmit)="search()">
+    <table>
+        <tr>
+            <td>Select cuisine: </td>
+            <td>
+                <select formControlName="cuisine">
+                    <option *ngFor="let cuisine of cuisines" [value]="cuisine">{{ cuisine }}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Search</button>
+            </td>
+        </tr>
+    </table>
+</form>
